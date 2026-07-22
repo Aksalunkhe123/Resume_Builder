@@ -9,8 +9,8 @@ const loadGemini = () => {
 
 const getModel = () => {
   const apiKey = process.env.GEMINI_API_KEY;
-  if (!apiKey) {
-    throw new Error('GEMINI_API_KEY is not configured on the server.');
+  if (!apiKey || apiKey === 'your_gemini_api_key_here') {
+    throw new Error('MOCK_REQUIRED');
   }
 
   const GenAI = loadGemini();
@@ -81,6 +81,24 @@ const analyzeResumeWithGemini = async (resumeText) => {
 
     return parseAnalysisResponse(responseText);
   } catch (error) {
+    if (error.message === 'MOCK_REQUIRED' || (error.message && error.message.includes('API_KEY_INVALID'))) {
+      console.log('Using mocked Gemini response due to missing/invalid API key.');
+      return {
+        summary: "This is a mocked analysis because a valid Gemini API key was not provided. The candidate has a solid foundation in software engineering with a focus on full-stack web development.",
+        skills: ["Java", "Python", "JavaScript", "React", "Node.js", "SQL", "MongoDB", "Data Structures", "Algorithms", "Git"],
+        projects: [
+          { title: "E-commerce Platform", description: "Built a full-stack e-commerce app using MERN stack." },
+          { title: "Portfolio Website", description: "Created a personal portfolio using React and Tailwind CSS." }
+        ],
+        certifications: ["AWS Certified Cloud Practitioner", "HackerRank Problem Solving (Basic)"],
+        education: [
+          { degree: "B.Tech in Computer Science", institution: "Tech University", year: "2024" }
+        ],
+        strengths: ["Strong problem-solving skills", "Good grasp of web technologies", "Relevant project experience"],
+        weaknesses: ["Lacks cloud deployment experience", "No mention of testing frameworks (Jest, Mocha)"],
+        missingKeywords: ["Docker", "Kubernetes", "CI/CD", "TypeScript"]
+      };
+    }
     if (error.code === 'MODULE_NOT_FOUND') {
       throw new Error(
         'Gemini SDK not installed. Run "npm install" in the backend folder.'

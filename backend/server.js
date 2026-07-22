@@ -8,6 +8,8 @@ const profileRoutes = require('./routes/profileRoutes');
 const resumeRoutes = require('./routes/resumeRoutes');
 const analysisRoutes = require('./routes/analysisRoutes');
 const skillGapRoutes = require('./routes/skillGapRoutes');
+const companyRoutes = require('./routes/companyRoutes');
+const resumeBuilderRoutes = require('./routes/resumeBuilderRoutes');
 
 const app = express();
 const PORT = process.env.PORT || 5000;
@@ -27,6 +29,8 @@ app.use('/api/student-profile', profileRoutes);
 app.use('/api/resume', resumeRoutes);
 app.use('/api/analysis', analysisRoutes);
 app.use('/api/skill-gap', skillGapRoutes);
+app.use('/api/company-readiness', companyRoutes);
+app.use('/api/resume-builder', resumeBuilderRoutes);
 
 app.use((req, res) => {
   res.status(404).json({ success: false, message: 'Route not found.' });

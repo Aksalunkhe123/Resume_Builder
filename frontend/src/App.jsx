@@ -11,6 +11,9 @@ import AnalysisDashboard from './pages/AnalysisDashboard';
 import AnalysisReport from './pages/AnalysisReport';
 import SkillGapDashboard from './pages/SkillGapDashboard';
 import SkillGapReport from './pages/SkillGapReport';
+import CompanyReadiness from './pages/CompanyReadiness';
+import CompanyReadinessReport from './pages/CompanyReadinessReport';
+import ResumeBuilder from './pages/ResumeBuilder';
 import { useAuth } from './context/AuthContext';
 
 function PublicRoute({ children }) {
@@ -120,6 +123,30 @@ export default function App() {
         element={
           <ProtectedRoute>
             <SkillGapReport />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/company-readiness"
+        element={
+          <ProtectedRoute>
+            <CompanyReadiness />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/company-readiness/:id"
+        element={
+          <ProtectedRoute>
+            <CompanyReadinessReport />
+          </ProtectedRoute>
+        }
+      />
+      <Route
+        path="/resume-builder"
+        element={
+          <ProtectedRoute>
+            <ResumeBuilder />
           </ProtectedRoute>
         }
       />
